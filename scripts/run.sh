@@ -13,6 +13,11 @@ unzip filler.zip
 rm filler.zip
 log "\nDocker image folder unzipped" "Zip folder deleted successfully."
 
+# Building the filler project
+log "\nBuilding filler binary..."
+cargo build --target-dir solution
+log "\n Binary built"
+
 # Build the docker image
 log "\nBuilding the docker image...\n"
 docker build -t filler ./docker_image/
@@ -28,4 +33,7 @@ log "\nRemoving docker image..."
 docker rmi filler
 log "Deleting folder..."
 rm -rf docker_image/
-log "Folder deleted successfully." "Exiting..."
+log "Folder deleted successfully." "Deleting solution folder..."
+rm -rf solution/
+cargo clean
+log "Solution folder deleted successfully." "Exiting..."
