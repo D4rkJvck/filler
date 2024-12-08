@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$(dirname "$0")/log.sh"
+source "$(dirname "$0")/utils.sh"
 
 # Download the docker image
 log "Downloading docker image folder zip...\n"
