@@ -1,27 +1,20 @@
 #!/bin/bash
 
-desired_branch="main"
-username="jefaye"
-email="clement.jean.l.faye@gmail.com"
+source "$(dirname "$0")/log.sh"
 
-# Prints its first argument...
-# Adds a 1 second cooldown...
-log() {
-    echo -e "$1"
-    sleep .5
-}
+BRANCH="main"
+USER="jefaye"
+MAIL="clement.jean.l.faye@gmail.com"
 
-# Checks if there is already a username and email in configuration...
-# If no username or email if found, it will config it...
+# Checks if there is already a USER and MAIL in configuration...
+# If no USER or MAIL if found, it will config it...
 check_credentials() {
     log "\nChecking credentials..."
 
-    if ! git config --get user.name || ! git config --get user.email; then
-        log "No Credentials found!!!"
-
-        log "Configuring credentials..."
-        git config user.name "$username"
-        git config user.email "$email"
+    if ! git config --get user.name || ! git config --get user.MAIL; then
+        log "No Credentials found!!!" "Configuring credentials..."
+        git config user.name "$USER"
+        git config user.MAIL "$MAIL"
     fi
 
     log "Credentials have been configured successfully!"
@@ -33,13 +26,12 @@ check_branch() {
     log "\nChecking branch..."
     git branch
 
-    if [ "$(git rev-parse --abbrev-ref HEAD)" != "$desired_branch" ]; then
-        log "[WARNING] Not on branch $desired_branch..."
-        log "Please restart..."
+    if [ "$(git rev-parse --abbrev-ref HEAD)" != "$BRANCH" ]; then
+        log "[WARNING] Not on branch $BRANCH..." "Please restart..."
         exit 1
     fi
 
-    log "You're on branch $desired_branch!"
+    log "You're on branch $BRANCH!"
 }
 
 # Adds the files given as arguments...
@@ -48,9 +40,7 @@ add_files() {
     log "\nAdding files..."
 
     if [ $# -eq 0 ]; then
-        log "No Files specified..."
-
-        log "Adding all changes..."
+        log "No Files specified..." "Adding all changes..."
         git add .
     else
         log "Adding Specified files..."
@@ -74,8 +64,8 @@ commit_and_push() {
     git status
     read -r -p "Enter Commit Message: " commit_message
     git commit -a -m "$commit_message"
-    git push origin "$desired_branch"
-    git push mirror "$desired_branch"
+    git push origin "$BRANCH"
+    git push mirror "$BRANCH"
 
     log "Well done!"
 }
