@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 source "$(dirname "$0")/utils.sh"
 
 BRANCH="main"
@@ -21,8 +23,7 @@ log "Credentials have been configured successfully!"
 log "\nChecking branch..."
 git branch
 if [ "$(git rev-parse --abbrev-ref HEAD)" != "$BRANCH" ]; then
-    log "[WARNING] Not on branch $BRANCH..." "Please restart..."
-    exit 1
+    error "[WARNING] Not on branch $BRANCH..."
 fi
 log "You're on branch $BRANCH!"
 
