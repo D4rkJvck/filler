@@ -1,5 +1,7 @@
 use std::{error::Error, fs, io};
 
+// use filler::Data;
+
 fn main() -> Result<(), Box<dyn Error>> {
     let mut input = String::new();
 
@@ -7,6 +9,8 @@ fn main() -> Result<(), Box<dyn Error>> {
         io::stdin()
             .read_line(&mut input)
             .expect("Failed to read input");
+
+        // let data = Data::get_from(&input);
 
         let mut file = fs::OpenOptions::new()
             .append(true)

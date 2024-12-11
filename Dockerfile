@@ -15,8 +15,7 @@ ARG APP_NAME=filler
 FROM docker:20.10.7-dind
 
 # Install Rust and Cargo from the official Rust installation script
-RUN apk add --no-cache curl && \
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 ARG APP_NAME
 WORKDIR /${APP_NAME}
