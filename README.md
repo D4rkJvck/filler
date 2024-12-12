@@ -19,6 +19,10 @@
 - [Installation](#installation)
     - [Cloning](#cloning)
     - [File System](#file-system)
+- [Docker](#docker)
+    - [Building and running your application](#building-and-running-your-application)
+    - [Deploying your application to the cloud](#deploying-your-application-to-the-cloud)
+    - [References](#references)
 - [Usage](#usage)
     - [Filler docker image](#filler-docker-image)
         - [Notes](#notes)
@@ -150,20 +154,65 @@ Here are the flags that can be used:
 
     .
     |
+    +-- scripts/
+    |       |
+    |       + gitify.sh
+    |       + run.sh
+    |       + utils.sh
+    |
     +----- src/
     |       |
+    |       + data.rs
+    |       + lib.rs
     |       + main.rs
+    |       + utils.rs
+    |       + view.rs
     |
+    +--- tests/
+    |       |
+    |       + anfield.rs
+    |       + matrix.rs
+    |       + piece.rs
+    |       + player.rs
+    |       + size.rs
+    |
+    + .dockerignore
     + .gitignore
     + audit.todo
     + Cargo.lock
     + Cargo.toml
+    + Dockerfile
     + ferris.svg
     + gitify.sh
     + LICENSE
     + README.md
 
 ###### [_Table of Contents ⤴️_](#table-of-contents)
+
+## Docker
+
+### Building and running your application
+
+When you're ready, start your application by running:
+`docker compose up --build`.
+
+Your application will be available at http://localhost:8080.
+
+### Deploying your application to the cloud
+
+First, build your image, e.g.: `docker build -t myapp .`.
+If your cloud uses a different CPU architecture than your development
+machine (e.g., you are on a Mac M1 and your cloud provider is amd64),
+you'll want to build the image for that platform, e.g.:
+`docker build --platform=linux/amd64 -t myapp .`.
+
+Then, push it to your registry, e.g. `docker push myregistry.com/myapp`.
+
+Consult Docker's [getting started](https://docs.docker.com/go/get-started-sharing/)
+docs for more detail on building and pushing.
+
+### References
+* [Docker's Rust guide](https://docs.docker.com/language/rust/)
 
 ## Usage
 
