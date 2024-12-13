@@ -28,7 +28,7 @@ O.O.
 -> Answer (@): 8 2";
 
     assert_eq!(
-        Data::get_from(input).anfield,
+        Data::get(input).anfield,
         vec![
             vec![
                 '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.',
@@ -138,7 +138,7 @@ OO..
 -> Answer (@): 4 3";
 
     assert_eq!(
-        Data::get_from(input).anfield,
+        Data::get(input).anfield,
         vec![
             vec![
                 '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.',

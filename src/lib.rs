@@ -1,9 +1,11 @@
 mod data;
-mod utils;
 mod view;
 
+#[macro_use]
+pub mod utils;
+
 pub use data::Data;
-pub use utils::{get_size, matricize};
+pub use view::View;
 
 pub type Matrix = Vec<Vec<char>>;
 pub type Size = (usize, usize);

@@ -28,7 +28,7 @@ O.O.
 -> Answer (@): 8 2";
 
     assert_eq!(
-        Data::get_from(input).piece,
+        Data::get(input).piece,
         vec![
             vec!['O', 'O', '.', '.'],
             vec!['O', '.', 'O', '.'],
@@ -81,7 +81,7 @@ OO..
 -> Answer (@): 4 3";
 
     assert_eq!(
-        Data::get_from(input).piece,
+        Data::get(input).piece,
         vec![
             vec!['O', '.', '.', 'O'],
             vec!['O', 'O', 'O', 'O'],
@@ -204,7 +204,7 @@ Piece 17 3:
 -> Answer (@): 62 70";
 
     assert_eq!(
-        Data::get_from(input).piece,
+        Data::get(input).piece,
         vec![
             vec![
                 '.', '.', '.', '.', '.', 'O', 'O', 'O', 'O', '.', '.', '.', '.', '.', '.', '.', '.'

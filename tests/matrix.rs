@@ -1,4 +1,4 @@
-use filler::matricize;
+use filler::utils::matricize;
 
 #[test]
 fn test_matricize_map02() {

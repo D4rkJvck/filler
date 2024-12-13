@@ -13,7 +13,7 @@ pub struct Data {
 }
 
 impl Data {
-    pub fn get_from(input: &str) -> Self {
+    pub fn get(input: &str) -> Self {
         let lines: Vec<&str> = input.split("\n").collect();
 
         let player_id = if lines.first().unwrap().contains("filler") {

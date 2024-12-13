@@ -2,7 +2,7 @@ use filler::Data;
 
 #[test]
 fn test_get_player_id_1() {
-    let input = "$$$ exec p1 : [solution/debug/filler]
+    let input: &str = "$$$ exec p1 : [solution/debug/filler]
 $$$ exec p2 : [linux_robots/terminator]
 Anfield 40 30:
     0123456789012345678901234567890123456789
@@ -43,7 +43,7 @@ OO.O
 OO..
 -> Answer (@): 4 3";
 
-    assert_eq!(Data::get_from(input).player_id, 1);
+    assert_eq!(Data::get(input).player_id, 1);
 }
 
 #[test]
@@ -158,5 +158,5 @@ Piece 17 3:
 ......O..........
 -> Answer (@): 62 70";
 
-    assert_eq!(Data::get_from(input).player_id, 2);
+    assert_eq!(Data::get(input).player_id, 2);
 }
