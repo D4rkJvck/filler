@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e # Exit immediately if a command exits with a non-zero status
-source "$(dirname "$0")/utils.sh"
+source "$(dirname $0)/utils.sh"
 
 if [ ! "$(docker images -q filler)" ]; then
     # Download the docker image
@@ -9,11 +9,11 @@ if [ ! "$(docker images -q filler)" ]; then
 
     # Unzip the docker image
     log "Unzipping file..."
-    unzip filler.zip || error "Failed to unzip file." && rm filler.zip
+    unzip filler.zip || error "Failed to unzip file."
 
     # Build the docker image
     log "Building image..."
-    docker build -t filler ./docker_image/ || error "Failed to build image." && rm -rf docker_image/
+    docker build -t filler ./docker_image/ || error "Failed to build image."
 fi
 
 # Building the filler project
@@ -24,7 +24,7 @@ cargo build --target-dir solution || error "Failed to build binary."
 log "Running Container..."
 docker run --rm -v "$(pwd)/solution":/filler/solution -it filler || error "Failed to run container."
 
-# Cleaning up
-log "Cleaning..."
-cargo clean -v --target-dir solution
-log "Exiting..."
+# # Cleaning up
+# log "Cleaning..."
+# source "$(dirname $0)/clean.sh"
+# log "Exiting..."

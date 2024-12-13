@@ -2,7 +2,7 @@
 
 set -e
 
-source "$(dirname "$0")/utils.sh"
+source "$(dirname $0)/utils.sh"
 
 BRANCH="main"
 USER="jefaye"
@@ -11,10 +11,10 @@ MAIL="clement.jean.l.faye@gmail.com"
 # Checks if there is already a USER and MAIL in configuration...
 # If no USER or MAIL if found, it will config it...
 log "\nChecking credentials..."
-if ! git config --get user.name || ! git config --get user.MAIL; then
+if ! git config --get user.name || ! git config --get user.email; then
     log "No Credentials found!!!" "Configuring credentials..."
-    git config user.name "$USER"
-    git config user.MAIL "$MAIL"
+    git config --global user.name "$USER"
+    git config --global user.email "$MAIL"
 fi
 log "Credentials have been configured successfully!"
 

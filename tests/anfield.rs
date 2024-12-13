@@ -2,7 +2,8 @@ use filler::Data;
 
 #[test]
 fn test_get_anfield_map00() {
-    let input = "$$$ exec p1 : [linux_robots/terminator]
+    let input = "
+$$$ exec p1 : [linux_robots/terminator]
 $$$ exec p2 : [linux_robots/terminator]
 Anfield 20 15:
     01234567890123456789

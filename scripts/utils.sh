@@ -4,7 +4,7 @@
 # Adds a 1 second cooldown...
 log() {
     for arg in "$@"; do
-        echo -e "\n$arg"
+        echo -e "$arg"
         sleep .5
     done
 }
