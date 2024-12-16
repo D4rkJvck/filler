@@ -17,8 +17,8 @@ if [ ! "$(docker images -q filler)" ]; then
 fi
 
 # Building the filler project
-log "Building binary..."
-cargo build --target-dir solution || error "Failed to build binary."
+# log "Building binary..."
+# cargo build --target-dir solution || error "Failed to build binary."
 
 # Run a docker container
 log "Running Container..."
