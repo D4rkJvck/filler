@@ -1,12 +1,18 @@
 // use filler::Data;
 use std::{
     // error::Error,
-    io::{self, BufRead, Write},
+    io::{
+        self,
+        BufRead,
+        Write,
+    },
 };
 
 fn main() {
     let mut input = String::new();
-    let mut file = std::fs::File::create("output.txt").expect("Unable to create file");
+    let mut file =
+        std::fs::File::create("output.txt").expect("Unable to create \
+                                                    file");
 
     for line in io::stdin().lock().lines() {
         let line = line.unwrap_or_default();

@@ -43,7 +43,8 @@ OO.O
 OO..
 -> Answer (@): 4 3";
 
-    assert_eq!(Data::get(input).player_id, 1);
+    assert_eq!(Data::get(input).player_id,
+               1);
 }
 
 #[test]
@@ -158,5 +159,6 @@ Piece 17 3:
 ......O..........
 -> Answer (@): 62 70";
 
-    assert_eq!(Data::get(input).player_id, 2);
+    assert_eq!(Data::get(input).player_id,
+               2);
 }

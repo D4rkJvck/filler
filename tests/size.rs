@@ -1,6 +1,5 @@
 use filler::utils::get_size;
 
-
 #[test]
 fn test_get_size_anfield_map00() {
     let input = "Anfield 20 15:";
@@ -28,7 +27,8 @@ fn test_get_size_piece_4_4() {
 #[test]
 fn test_get_size_anfield_map02() {
     let input = "Anfield 99 100:";
-    assert_eq!(get_size(input), (99, 100));
+    assert_eq!(get_size(input),
+               (99, 100));
 }
 
 #[test]

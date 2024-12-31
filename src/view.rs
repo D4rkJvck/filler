@@ -1,6 +1,10 @@
-use sdl2::{render::Canvas, video::Window};
-
-use crate::Matrix;
+use {
+    crate::Matrix,
+    sdl2::{
+        render::Canvas,
+        video::Window,
+    },
+};
 
 pub struct View {
     canvas: Canvas<Window>,
@@ -11,13 +15,14 @@ impl View {
         let sdl_ctx = sdl2::init()?;
         let video_subsys = sdl_ctx.video()?;
 
-        let window = video_subsys
-            .window("Filler", 800, 800)
-            .position_centered()
-            .build()
-            .map_err(|e| format!("{e}"))?;
+        let window = video_subsys.window("Filler", 800, 800)
+                                 .position_centered()
+                                 .build()
+                                 .map_err(|e| format!("{e}"))?;
 
-        let canvas = window.into_canvas().build().map_err(|e| e.to_string())?;
+        let canvas = window.into_canvas()
+                           .build()
+                           .map_err(|e| e.to_string())?;
 
         Ok(Self { canvas })
     }
