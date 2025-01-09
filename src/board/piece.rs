@@ -10,6 +10,7 @@ use {
     },
 };
 
+#[derive(Debug)]
 pub struct Piece {
     grid: Matrix,
     size: Size,

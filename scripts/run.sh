@@ -20,24 +20,27 @@ if [ ! "$(docker images -q filler)" ]; then
     docker build -t filler ./docker_image/ || error "Failed to build image."
 fi
 
-# Building the filler project
-log "\nBuilding binary..."
-cargo build --target-dir solution || error "Failed to build binary."
+mkdir -p solution
 
 if [ "$(uname -s)" == "Darwin" ] && [ "$(uname -m)" != "arm64" ]; then
     log "Copying src/ into solution/"
-    cp src/ ./solution
+    cp Cargo.toml ./solution
+    cp -r src ./solution/src
 else
-    # Run a docker container
-    log "Running Container..."
-    docker run --rm -v "$(pwd)/solution":/filler/solution -it filler || error "Failed to run container."
+    # Building the filler project
+    log "\nBuilding binary..."
+    cargo build --target-dir solution || error "Failed to build binary."
 fi
+
+# Run a docker container
+log "Running Container..."
+docker run --rm -v "$(pwd)/solution":/filler/solution -it filler || error "Failed to run container."
 
 # Cleaning up
 read -n 1 -p "Would you like to clean? [Y/n]: " response
 
-if [[ "${response,,}" == "y" ]]; then
-    log "Cleaning..."
+if [[ "${response}" == "y" ]]; then
+    log "\nCleaning..."
     source "$(dirname $0)/clean.sh"
 fi
 

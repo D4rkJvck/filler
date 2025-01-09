@@ -24,11 +24,11 @@ remove() {
     for arg in "$@"; do
         if [ -d "$arg" ]; then
             log "Removing directory $arg..."
-            rm -rf "$arg"
+            rm -rf "$arg" || continue
             log "$arg [REMOVED]\n"
         elif [ -f "$arg" ]; then
             log "Removing file $arg..."
-            rm "$arg"
+            rm "$arg" || continue
             log "$arg [REMOVED]\n"
         else
             log "$arg already removed...\n"

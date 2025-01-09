@@ -1,30 +1,27 @@
 use {
     filler::{
+        log,
         Anfield,
         Piece,
     },
     std::io::{
         self,
-        BufRead,
+        Result,
         Write,
     },
 };
 
-fn main() -> io::Result<()> {
-    let mut line = String::new();
-    let mut input = io::stdin().lock();
+fn main() -> Result<()> {
+    let input = io::stdin();
+    let mut input = input.lock();
     let mut output = io::stdout();
-
-    input.read_line(&mut line)?;
-
-    let is_p1 = line.contains("p1");
-    let filler = if is_p1 { ('a', '@') } else { ('s', '$') };
-    let foe = if is_p1 { ('s', '$') } else { ('a', '@') };
-
-    let mut anfield = Anfield::get(&mut input, (filler, foe))?;
+    
+    let mut anfield = Anfield::get(&mut input)?;
 
     loop {
-        anfield.update(&mut input)?;
+        if let Err(_) = anfield.update(&mut input) {
+            continue;
+        }
 
         match Piece::get(&mut input) {
             Err(_) => {
@@ -32,7 +29,8 @@ fn main() -> io::Result<()> {
                 output.flush()?;
             }
             Ok(_) => {
-                
+                println!("9 12");
+                output.flush()?;
             }
         }
     }

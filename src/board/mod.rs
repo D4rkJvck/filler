@@ -11,6 +11,7 @@ pub use {
 pub type Matrix = Vec<Vec<char>>;
 pub type Player = (char, char);
 
+#[derive(Debug)]
 pub struct Vector(usize, usize);
 pub type Position = Vector;
 pub type Size = Vector;

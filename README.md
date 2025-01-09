@@ -156,43 +156,43 @@ Here are the flags that can be used:
 
 ### File System
 
-    .
-    |
-    +-📂 scripts/
-    |       |
-    |       +-📜 clean.sh
-    |       +-📜 gitify.sh
-    |       +-📜 run.sh
-    |       +-📜 utils.sh
-    |
-    +---📂 src/
-    |       |
-    |       +-📂 board/
-    |       |       |
-    |       |       +-📄 anfield.rs
-    |       |       +-📄 mod.rs
-    |       |       +-📄 piece.rs
-    |       |       +-📄 utils.rs
-    |       |
-    |       +-📄 lib.rs
-    |       +-📄 main.rs
-    |
-    +-📂 tests/
-    |       |
-    |       +-📄 anfield.rs
-    |       +-📄 matrix.rs
-    |       +-📄 piece.rs
-    |       +-📄 player.rs
-    |       +-📄 size.rs
-    |
-    +-🚫 .gitignore
-    +-📝 audit.todo
-    +-🔒 Cargo.lock
-    +-⚙️ Cargo.toml
-    +-🌄 ferris.svg
-    +-🔑 LICENSE
-    +-📖 README.md
-    +-⚙️ rustfmt.toml
+    --📂./
+        |
+        +-📂 scripts/
+        |       |
+        |       +-📜 clean.sh
+        |       +-📜 gitify.sh
+        |       +-📜 run.sh
+        |       +-📜 utils.sh
+        |
+        +---📂 src/
+        |       |
+        |       +-📂 board/
+        |       |       |
+        |       |       +-📄 anfield.rs
+        |       |       +-📄 mod.rs
+        |       |       +-📄 piece.rs
+        |       |       +-📄 utils.rs
+        |       |
+        |       +-📄 lib.rs
+        |       +-📄 main.rs
+        |
+        +-📂 tests/
+        |       |
+        |       +-📄 anfield.rs
+        |       +-📄 matrix.rs
+        |       +-📄 piece.rs
+        |       +-📄 player.rs
+        |       +-📄 size.rs
+        |
+        +-🚫 .gitignore
+        +-📝 audit.todo
+        +-🔒 Cargo.lock
+        +-⚙️ Cargo.toml
+        +-🌄 ferris.svg
+        +-🔑 LICENSE
+        +-📖 README.md
+        +-⚙️ rustfmt.toml
 
 ###### [_Table of Contents ⤴️_](#table-of-contents)
 
