@@ -10,27 +10,31 @@
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Tech Stack](#tech-stack)
 - [Overview](#overview)
-    - [Anfield](#anfield)
-    - [Pieces](#pieces)
-    - [Robots](#robots)
-    - [Game Engine](#game-engine)
+  - [Anfield](#anfield)
+  - [Pieces](#pieces)
+  - [Robots](#robots)
+  - [Game Engine](#game-engine)
+        - [_Table of Contents ⤴️_](#table-of-contents-️)
 - [Installation](#installation)
-    - [Cloning](#cloning)
-    - [File System](#file-system)
+  - [Cloning](#cloning)
+  - [File System](#file-system)
+        - [_Table of Contents ⤴️_](#table-of-contents-️-1)
 - [Docker](#docker)
-    - [Building and running your application](#building-and-running-your-application)
-    - [Deploying your application to the cloud](#deploying-your-application-to-the-cloud)
-    - [References](#references)
+  - [Building and running your application](#building-and-running-your-application)
+  - [Deploying your application to the cloud](#deploying-your-application-to-the-cloud)
+  - [References](#references)
 - [Usage](#usage)
-    - [Filler docker image](#filler-docker-image)
-        - [Notes](#notes)
-    - [Example](#example)
+  - [Filler docker image](#filler-docker-image)
+    - [Notes:](#notes)
+  - [Example](#example)
+        - [_Table of Contents ⤴️_](#table-of-contents-️-2)
 - [Contributors](#contributors)
-    - [Author](#author)
-    - [Peers](#peers)
-    - [Auditors](#auditors)
+  - [Peers](#peers)
+  - [Auditors](#auditors)
+        - [_Table of Contents ⤴️_](#table-of-contents-️-3)
 
 ## Tech Stack
 
@@ -154,38 +158,41 @@ Here are the flags that can be used:
 
     .
     |
-    +-- scripts/
+    +-📂 scripts/
     |       |
-    |       + gitify.sh
-    |       + run.sh
-    |       + utils.sh
+    |       +-📜 clean.sh
+    |       +-📜 gitify.sh
+    |       +-📜 run.sh
+    |       +-📜 utils.sh
     |
-    +----- src/
+    +---📂 src/
     |       |
-    |       + data.rs
-    |       + lib.rs
-    |       + main.rs
-    |       + utils.rs
-    |       + view.rs
-    |
-    +--- tests/
+    |       +-📂 board/
+    |       |       |
+    |       |       +-📄 anfield.rs
+    |       |       +-📄 mod.rs
+    |       |       +-📄 piece.rs
+    |       |       +-📄 utils.rs
     |       |
-    |       + anfield.rs
-    |       + matrix.rs
-    |       + piece.rs
-    |       + player.rs
-    |       + size.rs
+    |       +-📄 lib.rs
+    |       +-📄 main.rs
     |
-    + .dockerignore
-    + .gitignore
-    + audit.todo
-    + Cargo.lock
-    + Cargo.toml
-    + Dockerfile
-    + ferris.svg
-    + gitify.sh
-    + LICENSE
-    + README.md
+    +-📂 tests/
+    |       |
+    |       +-📄 anfield.rs
+    |       +-📄 matrix.rs
+    |       +-📄 piece.rs
+    |       +-📄 player.rs
+    |       +-📄 size.rs
+    |
+    +-🚫 .gitignore
+    +-📝 audit.todo
+    +-🔒 Cargo.lock
+    +-⚙️ Cargo.toml
+    +-🌄 ferris.svg
+    +-🔑 LICENSE
+    +-📖 README.md
+    +-⚙️ rustfmt.toml
 
 ###### [_Table of Contents ⤴️_](#table-of-contents)
 

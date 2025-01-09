@@ -1,13 +1,7 @@
-mod data;
-mod view;
+mod board;
 
-#[macro_use]
-pub mod utils;
-
-pub use {
-    data::Data,
-    view::View,
+pub use board::{
+    Anfield,
+    Piece,
 };
 
-pub type Matrix = Vec<Vec<char>>;
-pub type Size = (usize, usize);

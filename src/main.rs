@@ -1,33 +1,39 @@
-// use filler::Data;
-use std::{
-    // error::Error,
-    io::{
+use {
+    filler::{
+        Anfield,
+        Piece,
+    },
+    std::io::{
         self,
         BufRead,
         Write,
     },
 };
 
-fn main() {
-    let mut input = String::new();
-    let mut file =
-        std::fs::File::create("output.txt").expect("Unable to create \
-                                                    file");
+fn main() -> io::Result<()> {
+    let mut line = String::new();
+    let mut input = io::stdin().lock();
+    let mut output = io::stdout();
 
-    for line in io::stdin().lock().lines() {
-        let line = line.unwrap_or_default();
+    input.read_line(&mut line)?;
 
-        if line.trim().is_empty() {
-            file.write_all("\nEnd of Input\n".as_bytes())
-                .expect("Unable to write...");
-            continue;
+    let is_p1 = line.contains("p1");
+    let filler = if is_p1 { ('a', '@') } else { ('s', '$') };
+    let foe = if is_p1 { ('s', '$') } else { ('a', '@') };
+
+    let mut anfield = Anfield::get(&mut input, (filler, foe))?;
+
+    loop {
+        anfield.update(&mut input)?;
+
+        match Piece::get(&mut input) {
+            Err(_) => {
+                println!("0 0");
+                output.flush()?;
+            }
+            Ok(_) => {
+                
+            }
         }
-
-        file.write_all(format!("{}\n", line).as_bytes())
-            .expect("Unable to write data");
-
-        input += format!("{}\n", line).as_str();
-
-        println!("9 12")
     }
 }
