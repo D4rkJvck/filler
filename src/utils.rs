@@ -27,7 +27,7 @@ pub fn get_data(
         .split_whitespace()
         .collect();
 
-    if params.len() < 3 || params[0] != "Piece" {
+    if params.len() < 3 || params[0] != str {
         return Err(Error::new(
             ErrorKind::InvalidData,
             "Invalid Format",
