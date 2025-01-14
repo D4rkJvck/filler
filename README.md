@@ -237,6 +237,14 @@ docker run -v "$(pwd)/solution":/filler/solution -it filler`
 
 This instruction will open a terminal in the container, the directory `solution` will be mounted in the container as well.
 
+- Before running the game engine, the source code in solution must be built;
+```shell
+cd solution
+cargo build
+cd ..
+```
+
+- Finally from the filler directory, the game engine can be run.
 - Example of a command in the container:
 ```shell
 ./linux_game_engine -f maps/map00 -p1 linux_robots/terminator -p2 solution/target/debug/filler
