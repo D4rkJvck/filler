@@ -1,93 +1,156 @@
-use {
-    super::{Matrix, Piece, Player, Position, Size},
-    std::io::{self, BufRead},
+use super::{
+    Matrix,
+    Piece,
+    Player,
+    Position,
+    Size,
 };
 
-#[derive(Default)]
+#[derive(Debug, Clone)]
 pub struct Anfield {
-    grid: Matrix,
-    size: Size,
-    filler: Player,
-    foe: Player,
+    pub grid:   Matrix,
+    pub size:   Size,
+    pub filler: Player,
+    pub foe:    Player,
 }
 
 impl Anfield {
     pub fn new(size: Size, filler: Player, foe: Player) -> Self {
-        let grid = vec![vec!['.'; size.x()]; size.y()];
-
         Self {
-            grid,
+            grid: vec![vec!['.'; size.width]; size.height],
             size,
             filler,
             foe,
         }
     }
 
-    pub fn size(&self) -> Size {
-        self.size
-    }
+    pub fn update(&mut self, board_str: &str) {
+        for (y, line) in board_str.lines().enumerate() {
+            if y >= self.size.height {
+                break;
+            }
 
-    pub fn update(&mut self, input: &mut impl BufRead) -> io::Result<()> {
-        for y in 0..=self.size.y() {
-            let mut line = String::new();
+            for (x, c) in line.chars().enumerate() {
+                if x >= self.size.width {
+                    break;
+                }
 
-            input.read_line(&mut line)?;
-
-            if line.len() > 4 {
-                line = (&line[4..]).to_string();
-            };
-
-            line.trim()
-                .chars()
-                .enumerate()
-                .for_each(|(x, c)| self.grid[y][x] = c)
+                self.grid[y][x] = c;
+            }
         }
-
-        Ok(())
     }
 
-    pub fn valid_positions_for(&self, piece: &Piece) -> Vec<Position> {
-        let mut valid_positions = Vec::new();
+    pub fn is_valid_placement(
+        &self,
+        piece: &Piece,
+        pos: &Position,
+    ) -> bool {
+        let mut overlap_count = 0;
 
-        for y in 0..self.size.y() {
-            for x in 0..self.size.x() {
-                let cell = Position::new(x, y);
+        for piece_y in 0..piece.size.height {
+            for piece_x in 0..piece.size.width {
+                let board_x = pos.x + piece_x as i32;
+                let board_y = pos.y + piece_y as i32;
 
-                if piece.is_valid_on(cell, self) {
-                    valid_positions.push(cell)
+                if piece.grid[piece_y][piece_x] == 'O' {
+                    // Check boundaries
+                    if !self.is_within_bounds(board_x, board_y) {
+                        return false;
+                    }
+
+                    let board_cell =
+                        self.grid[board_y as usize][board_x as usize];
+
+                    if board_cell == self.foe.0 || board_cell == self.foe.1
+                    {
+                        return false;
+                    }
+
+                    if board_cell == self.filler.0
+                        || board_cell == self.filler.1
+                    {
+                        overlap_count += 1;
+                        if overlap_count < 1 {
+                            return false;
+                        }
+                    }
                 }
             }
         }
 
-        valid_positions
+        overlap_count == 1
     }
 
-    pub fn foe_territory(&self) -> Vec<Position> {
-        let foe_positions = vec![];
-        self.grid
-            .iter()
-            .enumerate()
-            .filter_map(|(y, row)| {
-                row.iter()
-                    .enumerate()
-                    .filter_map(|(x, &cell)| {
-                        if cell == self.foe.0 || cell == self.foe.1 {
-                            Some(Position::new(x, y))
-                        } else {
-                            None
-                        }
-                    })
-            })
-            .collect()
+    fn is_within_bounds(&self, x: i32, y: i32) -> bool {
+        x >= 0
+            && x < self.size.width as i32
+            && y >= 0
+            && y < self.size.height as i32
     }
 
-    pub fn is_lost_on(&self, position: Position) -> bool {
-        let cell = self.grid[position.y()][position.x()];
-        cell == self.foe.0 || cell == self.foe.1
+    pub fn find_best_move(&self, piece: &Piece) -> Option<Position> {
+        let possible_moves = self.get_all_valid_moves(piece);
+
+        self.find_shortest_distance(possible_moves)
     }
 
-    pub fn is_won_on(&self, position: Position) -> bool {
-        let cell = self.grid[position.y()][position.x()];
-        cell == self.filler.0 || cell == self.filler.1
+    fn get_all_valid_moves(&self, piece: &Piece) -> Vec<Position> {
+        let mut valid_moves = Vec::new();
+
+        for y in 0..self.size.height {
+            for x in 0..self.size.width {
+                let pos = Position::new(x as i32, y as i32);
+
+                if self.is_valid_placement(piece, &pos) {
+                    valid_moves.push(pos);
+                }
+            }
+        }
+
+        valid_moves
+    }
+
+    pub fn get_opponent_positions(&self) -> Vec<Position> {
+        let mut positions = Vec::new();
+
+        for y in 0..self.size.height {
+            for x in 0..self.size.width {
+                let cell = self.grid[y][x];
+                if cell == self.foe.0 || cell == self.foe.1 {
+                    positions.push(Position::new(
+                        x as i32, y as i32,
+                    ));
+                }
+            }
+        }
+
+        positions
+    }
+
+    pub fn find_shortest_distance(
+        &self,
+        possible_moves: Vec<Position>,
+    ) -> Option<Position> {
+        let opponent_positions = self.get_opponent_positions();
+
+        if possible_moves.is_empty() || opponent_positions.is_empty() {
+            return None;
+        }
+
+        let mut shortest_distance = i32::MAX;
+        let mut closest_position = None;
+
+        for player_pos in &possible_moves {
+            for opponent_pos in &opponent_positions {
+                let distance = player_pos.manhattan_distance(opponent_pos);
+
+                if distance < shortest_distance {
+                    shortest_distance = distance;
+                    closest_position = Some(player_pos.clone());
+                }
+            }
+        }
+
+        closest_position
     }
 }

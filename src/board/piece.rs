@@ -1,55 +1,72 @@
 use {
-    super::{Anfield, Matrix, Position, Size},
-    crate::get_data,
-    std::io::{BufRead, Result},
+    super::{
+        Matrix,
+        Size,
+    },
+    std::io::{
+        BufRead,
+        Error,
+        ErrorKind,
+        Result,
+    },
 };
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Piece {
-    grid: Matrix,
-    size: Size,
+    pub grid: Matrix,
+    pub size: Size,
 }
 
 impl Piece {
     pub fn get(input: &mut impl BufRead) -> Result<Self> {
-        let (grid, size) = get_data(input, "Piece")?;
-        Ok(Self { grid, size })
-    }
+        let mut line = String::new();
 
-    pub fn best_position(&self, anfield: &Anfield) -> Option<Position> {
-        let valid_positions = anfield.valid_positions_for(self);
-        
-    }
+        while !line.contains("Piece") {
+            line.clear();
+            input.read_line(&mut line)?;
+        }
 
-    pub fn is_valid_on(
-        &self,
-        position: Position,
-        anfield: &Anfield,
-    ) -> bool {
-        let mut overlaps = 0;
+        let params: Vec<&str> = line
+            .trim()
+            .split_whitespace()
+            .collect();
 
-        for y in 0..self.size.y() {
-            for x in 0..self.size.x() {
-                let cell = Position::new(
-                    position.x() + x,
-                    position.y() + y,
-                );
+        if params.len() < 3 || params[0] != "Piece" {
+            return Err(Error::new(
+                ErrorKind::InvalidData,
+                "Invalid piece format",
+            ));
+        }
 
-                if self.grid[y][x] != 'O' {
-                    continue;
-                }
+        let width = params[1]
+            .parse()
+            .unwrap_or_default();
 
-                if cell.fits_in(anfield.size()) || anfield.is_lost_on(cell)
-                {
-                    return false;
-                }
+        let height = params[2]
+            .trim_end_matches(':')
+            .parse()
+            .unwrap_or_default();
 
-                if anfield.is_won_on(cell) {
-                    overlaps += 1;
+        let mut grid = vec![vec!['.'; width]; height];
+
+        for y in 0..height {
+            line.clear();
+
+            input.read_line(&mut line)?;
+
+            for (x, c) in line
+                .trim()
+                .chars()
+                .enumerate()
+            {
+                if x < width {
+                    grid[y][x] = c;
                 }
             }
         }
 
-        overlaps == 1
+        let size = Size::new(width, height);
+
+        Ok(Self { grid, size })
     }
 }

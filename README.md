@@ -225,9 +225,23 @@ docs for more detail on building and pushing.
 
 ### [Filler docker image](https://assets.01-edu.org/filler/filler.zip)
 
-- To build the image `docker build -t filler .`
-- To run the container `docker run -v "$(pwd)/solution":/filler/solution -it filler`. This instruction will open a terminal in the container, the directory `solution` will be mounted in the container as well.
-- Example of a command in the container `./linux_game_engine -f maps/map01 -p1 linux_robots/bender -p2 linux_robots/terminator`
+- To build the image:
+```shell
+docker build -t filler .
+```
+
+- To run the container:
+```shell
+docker run -v "$(pwd)/solution":/filler/solution -it filler`
+```
+
+This instruction will open a terminal in the container, the directory `solution` will be mounted in the container as well.
+
+- Example of a command in the container:
+```shell
+./linux_game_engine -f maps/map00 -p1 linux_robots/terminator -p2 solution/target/debug/filler
+```
+
 - Your solution should be inside the `solution` directory so it will be mounted and compiled inside the container and it will be able to be run in the game engine.
 
 #### Notes:
